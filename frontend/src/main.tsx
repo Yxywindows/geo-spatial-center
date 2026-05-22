@@ -12,20 +12,20 @@ createRoot(document.getElementById('root')!).render(
       <ConfigProvider
         locale={zhCN}
         theme={{
-          algorithm: theme.darkAlgorithm,
+          algorithm: theme.defaultAlgorithm,
           token: {
-            colorPrimary: '#06b6d4',
-            colorBgBase: '#04091a',
-            colorTextBase: '#f1f5f9',
-            colorBorder: 'rgba(255,255,255,0.12)',
+            colorPrimary: '#208152',
+            colorBgBase: '#f4f8f5',
+            colorTextBase: '#111c16',
+            colorBorder: 'rgba(30,91,61,0.16)',
             borderRadius: 8,
             fontSize: 14,
             fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
           },
           components: {
-            Input: { colorBgContainer: 'rgba(255,255,255,0.05)' },
-            Select: { colorBgContainer: 'rgba(255,255,255,0.05)' },
-            Descriptions: { colorBgContainer: 'rgba(255,255,255,0.03)', colorFillAlter: 'rgba(255,255,255,0.02)' },
+            Input: { colorBgContainer: 'rgba(255,255,255,0.9)' },
+            Select: { colorBgContainer: 'rgba(255,255,255,0.9)' },
+            Descriptions: { colorBgContainer: 'rgba(252,254,252,0.9)', colorFillAlter: 'rgba(32,129,82,0.05)' },
             Tag: { borderRadiusSM: 4 },
             Pagination: { colorBgContainer: 'transparent' },
           },

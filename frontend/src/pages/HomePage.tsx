@@ -7,12 +7,12 @@ import {
   GlobalOutlined,
   SearchOutlined,
   UnlockOutlined,
-  CodeOutlined,
 } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { listResources, getStats, getTopKeywords } from '../api/resources'
 import type { Resource, StatsResponse, FacetItem } from '../types/resource'
 import WordCloud from '../components/ui/WordCloud'
+import heroGlobeUrl from '../assets/hero-globe.webp'
 
 function useCountUp(target: number, duration = 1600) {
   const [count, setCount] = useState(0)
@@ -34,14 +34,8 @@ function useCountUp(target: number, duration = 1600) {
 
 function resourceAccent(type?: string) {
   if (type === '论文') return { color: '#10b981', rgb: '16,185,129' }
-  if (type === '软件') return { color: '#8b5cf6', rgb: '139,92,246' }
-  return { color: '#06b6d4', rgb: '6,182,212' }
-}
-
-function resourceIcon(type?: string) {
-  if (type === '论文') return <FileTextOutlined />
-  if (type === '软件') return <CodeOutlined />
-  return <DatabaseOutlined />
+  if (type === '软件') return { color: '#248a3d', rgb: '36,138,61' }
+  return { color: '#208152', rgb: '32,129,82' }
 }
 
 function formatStorage(bytes?: number) {
@@ -53,10 +47,10 @@ function formatStorage(bytes?: number) {
 }
 
 const NAV_TILES = [
-  { icon: <SearchOutlined />, title: '数据检索', desc: '全文搜索与多维度筛选，快速定位目标资源', path: '/search', color: '#06b6d4', rgb: '6,182,212', bg: 'rgba(6,182,212,0.1)' },
+  { icon: <SearchOutlined />, title: '数据检索', desc: '全文搜索与多维度筛选，快速定位目标资源', path: '/search', color: '#208152', rgb: '32,129,82', bg: 'rgba(32,129,82,0.1)' },
   { icon: <UnlockOutlined />, title: '开放资源', desc: '浏览所有开放获取的数据集与论文', path: '/search?privacy=open', color: '#10b981', rgb: '16,185,129', bg: 'rgba(16,185,129,0.1)' },
-  { icon: <FileTextOutlined />, title: '政策科普', desc: '数据政策解读与地理空间智能科普知识', path: '/policy', color: '#8b5cf6', rgb: '139,92,246', bg: 'rgba(139,92,246,0.1)' },
-  { icon: <GlobalOutlined />, title: '全部资源', desc: '查看本分中心所有已发布资源', path: '/search', color: '#f59e0b', rgb: '245,158,11', bg: 'rgba(245,158,11,0.1)' },
+  { icon: <FileTextOutlined />, title: '政策科普', desc: '数据政策解读与地理空间智能科普知识', path: '/policy', color: '#248a3d', rgb: '36,138,61', bg: 'rgba(36,138,61,0.1)' },
+  { icon: <GlobalOutlined />, title: '全部资源', desc: '查看本分中心所有已发布资源', path: '/search', color: '#7fbf4d', rgb: '127,191,77', bg: 'rgba(127,191,77,0.12)' },
 ]
 
 export default function HomePage() {
@@ -77,72 +71,80 @@ export default function HomePage() {
   const openCount = useCountUp(stats?.open_count ?? 0)
   const subjectCount = useCountUp(stats?.subject_count ?? 0)
   const datasetCount = useCountUp(stats?.dataset_count ?? 0)
-
   const wcWords = keywords.map((k) => ({ word: k.name, count: k.count }))
 
   return (
     <div>
-      {/* ── Hero ── */}
       <section className="gs-hero">
         <div className="gs-hero__inner">
-          <div className="gs-hero__eyebrow">
-            <GlobalOutlined style={{ fontSize: 12 }} />
-            Sub-center · Geospatial Intelligence &amp; Human-Earth Systems
-          </div>
-          <h1 className="gs-hero__title">地理空间智能与人地系统</h1>
-          <p className="gs-hero__subtitle">
-            聚焦地理空间智能（GeoAI）与人地系统科学，开展多源时空数据融合、空间智能分析与区域治理建模研究，
-            构建面向复杂人地系统的空间认知与模拟能力。
-          </p>
-          <div className="gs-hero__stats">
-            <div className="gs-stat">
-              <span className="gs-stat__val">{total}</span>
-              <span className="gs-stat__lbl">资源总数</span>
+          <div className="gs-hero__content">
+            <div className="gs-hero__eyebrow">
+              <GlobalOutlined style={{ fontSize: 12 }} />
+              Sub-center · Geospatial Intelligence &amp; Human-Earth Systems
             </div>
-            <div className="gs-hero__divider" />
-            <div className="gs-stat">
-              <span className="gs-stat__val">{openCount}</span>
-              <span className="gs-stat__lbl">开放获取</span>
-            </div>
-            <div className="gs-hero__divider" />
-            <div className="gs-stat">
-              <span className="gs-stat__val">{subjectCount}</span>
-              <span className="gs-stat__lbl">学科方向</span>
-            </div>
-            <div className="gs-hero__divider" />
-            <div className="gs-stat">
-              <span className="gs-stat__val">{datasetCount}</span>
-              <span className="gs-stat__lbl">数据集</span>
+            <h1 className="gs-hero__title">地理空间智能与人<span>地系统</span></h1>
+            <p className="gs-hero__subtitle">
+              聚焦地理空间智能（GeoAI）与人地系统科学，汇聚多源时空数据融合、空间智能分析与区域治理
+              关键研究，构建面向复杂人地系统的空间认知与模拟能力。
+            </p>
+            <div className="gs-hero__actions">
+              <button type="button" className="gs-hero__btn-primary" onClick={() => navigate('/search')}>
+                开始检索 <ArrowRightOutlined />
+              </button>
+              <button type="button" className="gs-hero__btn-secondary" onClick={() => navigate('/policy')}>
+                了解更多
+              </button>
             </div>
           </div>
-          <div className="gs-hero__actions">
-            <button type="button" className="gs-hero__btn-primary" onClick={() => navigate('/search')}>
-              开始检索 →
-            </button>
-            <button type="button" className="gs-hero__btn-secondary" onClick={() => navigate('/policy')}>
-              政策科普
-            </button>
+          <div className="gs-hero__visual" aria-hidden="true">
+            <img src={heroGlobeUrl} alt="" />
           </div>
         </div>
       </section>
 
-      {/* ── Word Cloud ── */}
+      <section className="gs-stat-band" aria-label="资源统计">
+        <div className="gs-stat">
+          <span className="gs-stat__icon"><DatabaseOutlined /></span>
+          <span className="gs-stat__val">{total}</span>
+          <span className="gs-stat__lbl">资源总数</span>
+        </div>
+        <div className="gs-hero__divider" />
+        <div className="gs-stat">
+          <span className="gs-stat__icon"><UnlockOutlined /></span>
+          <span className="gs-stat__val">{openCount}</span>
+          <span className="gs-stat__lbl">开放获取</span>
+        </div>
+        <div className="gs-hero__divider" />
+        <div className="gs-stat">
+          <span className="gs-stat__icon"><FileTextOutlined /></span>
+          <span className="gs-stat__val">{subjectCount}</span>
+          <span className="gs-stat__lbl">学科方向</span>
+        </div>
+        <div className="gs-hero__divider" />
+        <div className="gs-stat">
+          <span className="gs-stat__icon"><DatabaseOutlined /></span>
+          <span className="gs-stat__val">{datasetCount}</span>
+          <span className="gs-stat__lbl">数据集</span>
+        </div>
+      </section>
+
       {wcWords.length > 0 && (
         <section className="gs-wc-section">
-          <div className="gs-section-head">
-            <h2 className="gs-gradient-text">关键词云</h2>
-            <span style={{ fontSize: 12, color: 'var(--t3)' }}>基于 {wcWords.length} 个高频关键词</span>
-          </div>
           <div className="gs-wc-card">
+            <div className="gs-section-head">
+              <h2>关键词云 / 热门主题</h2>
+              <button type="button" className="gs-section-link" onClick={() => navigate('/search')}>
+                查看全部 <ArrowRightOutlined />
+              </button>
+            </div>
             <WordCloud words={wcWords} />
           </div>
         </section>
       )}
 
-      {/* ── Nav tiles ── */}
-      <section className="gs-tiles" style={{ marginBottom: 40 }}>
+      <section className="gs-tiles">
         <div className="gs-section-head">
-          <h2 className="gs-gradient-text">功能入口</h2>
+          <h2>功能入口</h2>
         </div>
         <div className="gs-tiles__grid">
           {NAV_TILES.map((tile) => (
@@ -164,17 +166,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Latest resources ── */}
       {resources.length > 0 && (
         <section>
           <div className="gs-section-head">
-            <h2 className="gs-gradient-text"><DatabaseOutlined /> 最新资源</h2>
-            <button
-              type="button"
-              style={{ fontSize: 13, color: 'var(--cyan)', background: 'none', border: 'none', cursor: 'pointer' }}
-              onClick={() => navigate('/search')}
-            >
-              查看全部 →
+            <h2>最新资源</h2>
+            <button type="button" className="gs-section-link" onClick={() => navigate('/search')}>
+              查看全部 <ArrowRightOutlined />
             </button>
           </div>
           <div className="gs-res-grid">

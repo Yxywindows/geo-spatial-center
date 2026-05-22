@@ -7,9 +7,9 @@ interface Props {
 }
 
 const COLORS = [
-  '#38bdf8', '#34d399', '#a78bfa', '#fbbf24',
-  '#f87171', '#06b6d4', '#10b981', '#60a5fa',
-  '#fb923c', '#e879f9',
+  '#2f6f57', '#3c7861', '#4e6f62', '#6d7650',
+  '#6b5d52', '#326b70', '#2d6a4f', '#4f6f7a',
+  '#76674f', '#6b5a70',
 ]
 
 const ROTATIONS = [-15, -10, -5, 0, 0, 0, 5, 10, 15]
@@ -29,7 +29,7 @@ export default function WordCloud({ words, onWordClick, activeWord }: Props) {
         const rot = ROTATIONS[i % ROTATIONS.length]
         const color = COLORS[i % COLORS.length]
         const isActive = activeWord === w.word
-        const opacity = isActive ? 1 : (0.45 + ratio * 0.55)
+        const opacity = isActive ? 0.95 : (0.58 + ratio * 0.28)
 
         return (
           <span

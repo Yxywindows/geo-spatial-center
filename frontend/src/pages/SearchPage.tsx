@@ -21,8 +21,8 @@ const PAGE_SIZE = 10
 
 function resourceAccent(type?: string) {
   if (type === '论文') return { color: '#10b981', rgb: '16,185,129' }
-  if (type === '软件') return { color: '#8b5cf6', rgb: '139,92,246' }
-  return { color: '#06b6d4', rgb: '6,182,212' }
+  if (type === '软件') return { color: '#248a3d', rgb: '36,138,61' }
+  return { color: '#208152', rgb: '32,129,82' }
 }
 
 function resourceIcon(type?: string) {
