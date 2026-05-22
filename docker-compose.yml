@@ -1,0 +1,40 @@
+name: geo-spatial-center
+
+services:
+  geo-spatial-postgres:
+    image: postgres:16-alpine
+    container_name: geo-spatial-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: geo_spatial
+      POSTGRES_USER: geo_spatial
+      POSTGRES_PASSWORD: geo_dev
+    volumes:
+      - geo_spatial_data:/var/lib/postgresql/data
+      - ./backend/db/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5533:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U geo_spatial -d geo_spatial"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  geo-spatial-backend:
+    build:
+      context: ./backend
+    container_name: geo-spatial-backend
+    restart: unless-stopped
+    depends_on:
+      geo-spatial-postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      DATABASE_URL: postgres://geo_spatial:geo_dev@geo-spatial-postgres:5432/geo_spatial
+    ports:
+      - "3002:3002"
+    command: ["npm", "start"]
+
+volumes:
+  geo_spatial_data:
