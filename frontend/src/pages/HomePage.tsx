@@ -82,7 +82,7 @@ export default function HomePage() {
               <GlobalOutlined style={{ fontSize: 12 }} />
               Sub-center · Geospatial Intelligence &amp; Human-Earth Systems
             </div>
-            <h1 className="gs-hero__title">地理空间智能与人<span>地系统</span></h1>
+            <h1 className="gs-hero__title">地理空间智能与人地系统</h1>
             <p className="gs-hero__subtitle">
               聚焦地理空间智能（GeoAI）与人地系统科学，汇聚多源时空数据融合、空间智能分析与区域治理
               关键研究，构建面向复杂人地系统的空间认知与模拟能力。
