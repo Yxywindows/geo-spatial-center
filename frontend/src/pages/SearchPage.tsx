@@ -4,18 +4,12 @@ import {
   CodeOutlined,
   DatabaseOutlined,
   FileTextOutlined,
-  FilterOutlined,
   SearchOutlined,
 } from '@ant-design/icons'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { listResources, getSubjects, getResourceTypes, getTopKeywords } from '../api/resources'
 import type { Resource, FacetItem } from '../types/resource'
 import WordCloud from '../components/ui/WordCloud'
-
-const HOT_KEYWORDS = [
-  '太湖', '土地利用', '人口', '江苏省', '遥感', '地球化学',
-  '空气污染', '洪泽湖', '生态', '城市', '水质', '气候',
-]
 
 const PAGE_SIZE = 10
 
@@ -124,25 +118,10 @@ export default function SearchPage() {
         </Button>
       </div>
 
-      <div className="gs-chips">
-        <FilterOutlined style={{ color: 'var(--t3)' }} />
-        <span>热门：</span>
-        {HOT_KEYWORDS.map((kw) => (
-          <button
-            key={kw}
-            type="button"
-            className={`gs-chip${keyword === kw ? ' gs-chip--active' : ''}`}
-            onClick={() => { setKeyword(keyword === kw ? '' : kw); setPage(1) }}
-          >
-            {kw}
-          </button>
-        ))}
-      </div>
-
       {topKeywords.length > 0 && (
         <section className="gs-wc-section">
           <div className="gs-wc-card">
-            <p className="gs-filter-label" style={{ marginBottom: 16, marginTop: 0 }}>关键词分析</p>
+            <p className="gs-filter-label" style={{ marginBottom: 16, marginTop: 0 }}>热门板块</p>
             <WordCloud
               words={topKeywords.map(k => ({ word: k.name, count: k.count }))}
               onWordClick={(word) => { setKeyword(keyword === word ? '' : word); setPage(1) }}
